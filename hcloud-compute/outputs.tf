@@ -16,24 +16,24 @@ output "server_info" {
   value = merge({ for srv in hcloud_server.server : srv.name => {
     public_ip_v4 = srv.ipv4_address
     private_net_info = [
-    for net in srv.network : {
-      net_id      = net.network_id
-      ip_address  = net.ip
-      ip_range    = local.network_ip_range_map[net.network_id]
-    }
+      for net in srv.network : {
+        net_id     = net.network_id
+        ip_address = net.ip
+        ip_range   = local.network_ip_range_map[net.network_id]
+      }
     ]
-  }
+    }
     },
     { for srv in hcloud_server.named_server : srv.name => {
       public_ip_v4 = srv.ipv4_address
-       private_net_info = [
-      for net in srv.network : {
-        net_id      = net.network_id
-        ip_address  = net.ip
-        ip_range    = local.network_ip_range_map[net.network_id]
-      }
+      private_net_info = [
+        for net in srv.network : {
+          net_id     = net.network_id
+          ip_address = net.ip
+          ip_range   = local.network_ip_range_map[net.network_id]
+        }
       ]
-    }
+      }
     }
   )
 }
