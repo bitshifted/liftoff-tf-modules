@@ -3,10 +3,11 @@
 
 
 locals {
+  # map servers to format 'name-number' when more than one server is created
   server_map = merge([
     for srv in var.hcloud_server_list : {
       for idx in range(srv.num_servers) :
-      "${srv.server_name}-${idx + 1}" => srv
+      "${srv.num_servers == 1 ? srv.server_name : "${srv.server_name}-${idx + 1}"}" => srv
     }
   ]...)
 }

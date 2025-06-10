@@ -28,5 +28,5 @@ variable "hcloud_server_list" {
     dns_zone                 = optional(string)
     num_servers              = optional(number, 1)
   }))
-  default = []
+  description = "values for different server configurations. At least one server configuration must be provided"
 }
